@@ -1,0 +1,7 @@
+// https://github.com/NatTuck/scratch-2021-01/blob/master/notes-4550/04-react-intro/notes.md
+{
+    "parser": "babel-eslint",
+    "rules": {
+        "no-unused-vars": ["warn", { "varsIgnorePattern": "^_" }]
+    }
+}
