@@ -36,3 +36,25 @@
     transform: rotate(360deg);
   }
 }
+
+/* custom */
+.alert {
+  color: red;
+}
+
+.center {
+  margin: auto;
+}
+
+.box.flex {
+  display: flex;
+  justify-content: center;
+}
+
+#numberInput {
+  width: 50%;
+}
+
+.wide {
+  width: 80%;
+}

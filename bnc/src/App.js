@@ -9,17 +9,21 @@ import {
 } from "./gameUtil";
 import GameOver from "./components/GameOver";
 import AttemptLogs from "./components/AttemptLogs";
+import ErrorMessage from "./components/ErrorMessage";
 
 function App() {
   const [logs, updateLogs] = useState(Array.from(Array(8), () => []));
   const [secretNumber, _setSecretNumber] = useState(generateRandomNumber());
   const [attempt, setAttempt] = useState("");
   const [gameState, setGameState] = useState("IN PROGRESS");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   function handleInput() {
     try {
       if (!isAttemptProper(attempt)) {
-        throw new Error("invalid number");
+        throw new Error(
+          "invalid number: cannot start with 0 and must have 4 unique digits. "
+        );
       }
       if (isAlreadyAttempted(logs, attempt)) {
         throw new Error("number already guessed");
@@ -31,9 +35,12 @@ function App() {
       setAttempt("");
       // calculate gamestate on proper submission
       setGameState(isGameOver(updatedLog));
+      // case of no errors so far:
+      setErrorMessage(null);
     } catch (error) {
       // clear input for invalid inputs as well
       setAttempt("");
+      setErrorMessage(error.message);
     }
   }
 
@@ -61,6 +68,7 @@ function App() {
     updateLogs(Array.from(Array(8), () => []));
     _setSecretNumber(generateRandomNumber());
     setAttempt("");
+    setErrorMessage(null);
     setGameState("IN PROGRESS");
   }
 
@@ -82,10 +90,10 @@ function App() {
       <div className="row">
         <h1>Bulls and Cows</h1>
       </div>
-
-      <div className="row">
+      <ErrorMessage error={errorMessage} />
+      <div className="row box flex">
         <input
-          className="column column-offset-20 column-40"
+          id="numberInput"
           type="number"
           onKeyPress={keyPress}
           onChange={handleInputChange}

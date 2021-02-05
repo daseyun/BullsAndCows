@@ -1,7 +1,7 @@
 import "milligram";
 function AttemptLogs(props) {
   return (
-    <div className="column">
+    <div className="box flex wide center">
       <table>
         <thead>
           <tr>
